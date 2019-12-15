@@ -24,6 +24,15 @@
                 },
                 select: function(event, ui){
                     $("#buscar_producto").val(ui.item.label);
+                    //obtenemos la plantilla
+                    var linea = $("#plantillaItemsFactura").html();
+                    // cambiamos los parámetros
+                    linea = linea.replace(/{ID}/g, ui.item.value);
+                    linea = linea.replace(/{NOMBRE}/g,ui.item.label);
+                    linea = linea.replace(/{PRECIO}/g,ui.item.precio);
+                    // agregamos la linea al tbody de la tabla
+                    $("#cargarItemProductos tbody").append(linea);
+
                     return false;
                 }
             });
