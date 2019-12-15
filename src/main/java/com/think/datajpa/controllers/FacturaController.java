@@ -1,9 +1,11 @@
 package com.think.datajpa.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import com.think.datajpa.models.entity.Cliente;
 import com.think.datajpa.models.entity.Factura;
+import com.think.datajpa.models.entity.Producto;
 import com.think.datajpa.models.service.IClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,5 +39,10 @@ public class FacturaController {
         model.put("factura", factura);
         model.put("titulo", "Crear factura");
         return "factura/form";
+    }
+
+    @GetMapping(value = "/cargar-productos/{term}", produces = {"application/json"})
+    public @ResponseBody List<Producto> cargarProductos(@PathVariable String term){
+        return clienteService.findByNombre(term);
     }
 }

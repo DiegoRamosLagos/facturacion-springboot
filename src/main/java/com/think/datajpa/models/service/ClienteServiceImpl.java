@@ -3,7 +3,9 @@ package com.think.datajpa.models.service;
 import java.util.List;
 
 import com.think.datajpa.models.dao.IClienteDao;
+import com.think.datajpa.models.dao.IProductoDao;
 import com.think.datajpa.models.entity.Cliente;
+import com.think.datajpa.models.entity.Producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Autowired
     private IClienteDao clienteDao;
+
+    @Autowired
+    private IProductoDao productoDao;
 
     @Override
     @Transactional(readOnly = true)
@@ -48,6 +53,11 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional(readOnly = true)
     public Page<Cliente> findAll(Pageable pageable) {
         return clienteDao.findAll(pageable);
+    }
+
+    @Override
+    public List<Producto> findByNombre(String term) {
+        return productoDao.findByNombre(term);
     }
 
 
